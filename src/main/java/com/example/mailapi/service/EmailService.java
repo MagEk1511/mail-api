@@ -34,18 +34,13 @@ public class EmailService {
             currentStatus = EmailStatus.SENT;
         } catch (Exception e) {
             currentStatus = EmailStatus.FAILED;
+            throw new EmailSendException("Failed to send email: " + emailRequest, e);
+        } finally {
             try {
                 emailLogService.saveEmail(emailRequest, currentStatus);
             } catch (Exception logException) {
                 throw new EmailLogException("Can't save email log for request: " + emailRequest, logException);
             }
-            throw new EmailSendException("Failed to send email: " + emailRequest, e);
-        }
-
-        try {
-            emailLogService.saveEmail(emailRequest, currentStatus);
-        } catch (Exception logException) {
-            throw new EmailLogException("Can't save email log for request: " + emailRequest, logException);
         }
     }
 }

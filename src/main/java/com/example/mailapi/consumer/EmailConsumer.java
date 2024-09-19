@@ -21,5 +21,4 @@ public class EmailConsumer {
     public void consumeEmailRequest(@Payload EmailRequest emailRequest) throws EmailException {
         emailService.sendEmail(emailRequest);
     }
-
 }
