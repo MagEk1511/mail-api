@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmailLogService {
@@ -25,6 +26,10 @@ public class EmailLogService {
         email.setStatus(status);
 
         emailRepository.save(email);
+    }
+
+    public Optional<Email> getEmailById(Long id) {
+        return emailRepository.findById(id);
     }
 
     public List<Email> getAllEmails() {
